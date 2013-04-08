@@ -1,0 +1,64 @@
+<div todo-directive class="todo" id="js-todos">
+  <header class="todo-header clearfix">
+    <a href="#" class="todo-button todo-button--large" id="js-add-todo-button">add project</a>
+    <div class="todo-total">
+      <h2>TOTAL</h2>
+      <div class="todo-hud">
+        <h3 id="js-todos-total">{{TodoService.todos.todo.length + TodoService.todos.inprogress.length + TodoService.todos.done.length}}</h3>
+        <h4>PROJECTS</h4>
+      </div>
+    </div>
+  </header>
+  
+  <div class="todos clearfix">
+    
+    <div class="todo three-up">
+      <div class="todo-list-header clearfix">
+        <h3>To Do</h3>
+        <div class="todo-hud">
+          <h3 id="js-todo-total">{{TodoService.todos.todo.length}}</h3>
+          <h4>PROJECTS</h4>
+        </div>
+      </div>
+      
+      <ul ui-sortable="{connectWith:'.todo-list', distance:10, tolerance:'pointer', start:start, beforeStop:beforeStop, stop: stop, scroll:false}" ng-model="TodoService.todos.todo" class="todo-list" id="js-todo-list">
+        <li ng-repeat="item in TodoService.todos.todo" class="todo-list__item" data-todo-state="todo">
+          <input ng-model="item.title" required ng-change="todoChange(item, 'todo')">
+        </li>
+      </ul>
+    </div>
+    
+    <div class="todo three-up">
+      <div class="todo-list-header clearfix">
+        <h3>In Progress</h3>
+        <div class="todo-hud">
+          <h3 id="js-inprogress-total">{{TodoService.todos.inprogress.length}}</h3>
+          <h4>PROJECTS</h4>
+        </div>
+      </div>
+      
+      <ul ui-sortable="{connectWith:'.todo-list', distance:10, tolerance:'pointer', stop: stop, scroll:false}" ng-model="TodoService.todos.inprogress" class="todo-list" id="js-inprogress-list">
+        <li ng-repeat="item in TodoService.todos.inprogress" class="todo-list__item" data-todo-state="inprogress">
+          <input ng-model="item.title" required ng-change="todoChange(item, 'inprogress')">
+        </li>
+      </ul>
+    </div>
+    
+    <div class="todo three-up">
+      <div class="todo-list-header clearfix">
+        <h3>Done</h3>
+        <div class="todo-hud">
+          <h3 id="js-done-total">{{TodoService.todos.done.length}}</h3>
+          <h4>PROJECTS</h4>
+        </div>
+      </div>
+      
+      <ul ui-sortable="{connectWith:'.todo-list', distance:10, tolerance:'pointer', stop: stop, scroll:false}" ng-model="TodoService.todos.done" class="todo-list" id="js-done-list">
+        <li ng-repeat="item in TodoService.todos.done" class="todo-list__item" data-todo-state="done">
+          <input ng-model="item.title" required ng-change="todoChange(item, 'done')">
+        </li>
+      </ul>
+    </div>
+    
+  </div>
+</div>

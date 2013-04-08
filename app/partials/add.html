@@ -1,0 +1,11 @@
+<div todo-add-todo ng-controller="todoAddController" class="overlay">
+  <div class="overlay__inner">
+    <a href="#" class="todo-button close" id="js-cancel-add-todo" ng-click="removeOverlay($event)">X</a>
+    <h2>Add a Todo</h2>
+    <form name="addTodoForm" ng-submit="addNewTodo($event)">
+      <input type="text" name="newTodoTitle" id="js-add-todo-title" required ng-model="todoTitle">
+      <input type="submit" id="js-add-todo-submit" value="Add" ng-click="addNewTodo($event)">
+    </form>
+    
+  </div>
+</div>

@@ -1,0 +1,29 @@
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1001;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  
+  .overlay__inner {
+    @include borderRadius(6px);
+    @include darkGlow();
+    margin: 100px auto;
+    width: 400px;
+    background: #FFFFFF;
+    padding: 20px;
+    
+    
+    .close {
+      float: right;
+    }
+    
+    h2 {
+      margin: 0 0 20px 0;
+    }
+  }
+}

@@ -1,0 +1,52 @@
+/* -------------------------------------------
+ * VARIABLES
+ * ---------------------------------------- */
+
+$lightGrey: #BBBBBB;
+$medGrey: #999999;
+
+@mixin gradient($color1, $color2) {
+  background-image: -moz-linear-gradient(top, $color1 0%, $color2 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$color1), color-stop(100%,$color2));
+  background-image: -webkit-linear-gradient(top, $color1 0%, $color2 100%);
+  background-image: -o-linear-gradient(top, $color1 0%, $color2 100%);
+  background-image: -ms-linear-gradient(top, $color1 0%, $color2 100%);
+  background-image: linear-gradient(to bottom, $color1 0%, $color2 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$color1}', endColorstr='#{$color2}',GradientType=1 );
+} 
+
+@mixin borderRadius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+          border-radius: $radius;
+}
+
+@mixin textShadow($xPos, $yPos, $blur, $color) {
+    text-shadow: $xPos $yPos $blur $color;
+}
+
+@mixin emboss() {
+    -webkit-box-shadow: inset 0px 1px 1px 0px #000000, 0px 1px 1px 0px #FFFFFF;
+       -moz-box-shadow: inset 0px 1px 1px 0px #000000, 0px 1px 1px 0px #FFFFFF;
+            box-shadow: inset 0px 1px 1px 0px #000000, 0px 1px 1px 0px #FFFFFF;
+}
+
+@mixin darkGlow() {
+    -webkit-box-shadow: 0px 0px 8px 1px #222222;
+       -moz-box-shadow: 0px 0px 8px 1px #222222;
+            box-shadow: 0px 0px 8px 1px #222222;
+}
+
+@mixin innerShadow() {
+    -webkit-box-shadow: inset 0px 2px 4px 0px #999999;
+       -moz-box-shadow: inset 0px 2px 4px 0px #999999;
+            box-shadow: inset 0px 2px 4px 0px #999999;
+}
+
+@mixin transition($duration) {
+    -webkit-transform: translate3d(0,0,0);
+    -webkit-transition: all $duration ease-in-out;
+       -moz-transition: all $duration ease-in-out;
+         -o-transition: all $duration ease-in-out;
+            transition: all $duration ease-in-out;
+}
