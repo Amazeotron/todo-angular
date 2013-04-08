@@ -12,4 +12,5 @@ Features:
 * Add new Todos with the "add" button.
 * Keyboard esc key closes the Add overlay.
 * You can edit the Todo title directly in the Todo. It updates the model as you type.
+* If you delete all the text in the Todo, it deletes it permanently.
 * Todos are saved between browser refreshes with LocalStorage and Lawnchair.
