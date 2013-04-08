@@ -1,4 +1,4 @@
-todo.services.factory('todoService', ['$rootScope', '$resource', '$http', function ($rootScope, $resource, $http) {
+todo.services.factory('todoService', ['$rootScope', '$http', function ($rootScope, $http) {
   
   var todoService = {};
   

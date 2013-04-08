@@ -39,11 +39,11 @@ if (!window.console.warn) {
     };
 }());
   
-var todo = angular.module('todo', ['ngResource', 'ui', 'todo.services', 'todo.directives', 'todo.controllers']);
+var todo = angular.module('todo', ['ui', 'todo.services', 'todo.directives', 'todo.controllers']);
 
-todo.services = angular.module('todo.services', ['ngResource']);
-todo.directives = angular.module('todo.directives', ['ngResource', 'ui']);
-todo.controllers = angular.module('todo.controllers', ['ngResource']);
+todo.services = angular.module('todo.services', []);
+todo.directives = angular.module('todo.directives', ['ui']);
+todo.controllers = angular.module('todo.controllers', []);
 
 todo.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
   $routeProvider.when('/todo', {templateUrl: '/partials/todo.html', controller: 'todoController'});
