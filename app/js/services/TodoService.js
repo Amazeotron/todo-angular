@@ -14,14 +14,14 @@ todo.services.factory('todoService', ['$rootScope', '$http', function ($rootScop
   todoService.getTodos = function() {
     
     if (todoService.Lawnchair == null) {
-      todoService.Lawnchair = new Lawnchair({name: 'todos', record: 'todo'}, function(people) {
+      todoService.Lawnchair = Lawnchair({name:'todoDB'}, function(store) {
         console.log("Lawnchair has been initiated.");
       });
     }
     
     todoService.Lawnchair.get('todos', function(todos) {
       
-      if (typeof todos == 'undefined') {
+      if (typeof todos == 'undefined' || todos == null) {
         todoService.todos = {
           "todo": [
             {"title": "Wash car"},
@@ -31,7 +31,11 @@ todo.services.factory('todoService', ['$rootScope', '$http', function ($rootScop
           "done": [{"title": "eat lunch"}]
         };
       } else {
-        todoService.todos = todos;
+        todoService.todos = todos.value;
+      }
+      
+      if(!$rootScope.$$phase) {
+        $rootScope.$apply();
       }
       
       $rootScope.$broadcast('todosRetrieved');
@@ -39,14 +43,14 @@ todo.services.factory('todoService', ['$rootScope', '$http', function ($rootScop
   }
   
   todoService.save = function() {
-    var todo = todoService.todos.todo,
-        inprogress = todoService.todos.inprogress,
-        done = todoService.todos.done;
+    var val = {
+          todo: todoService.todos.todo,
+          inprogress: todoService.todos.inprogress,
+          done: todoService.todos.done
+        };
     todoService.Lawnchair.save({
       key: 'todos',
-      todo: todo,
-      inprogress: inprogress,
-      done: done
+      value: val
     }, function() {
       console.log("Done saving locally!");
     });
