@@ -1,9 +1,8 @@
-todo.services.factory('todoService', ['$rootScope', '$http', function ($rootScope, $http) {
+todo.services.factory('todoService', ['$rootScope', '$http', 'localStorageService', function ($rootScope, $http, localStorageService) {
   
   var todoService = {};
   
   todoService.message = {};
-  todoService.Lawnchair = null;
   todoService.todos = {};
   
   todoService.prepForBroadcast = function(msg) {
@@ -12,50 +11,47 @@ todo.services.factory('todoService', ['$rootScope', '$http', function ($rootScop
   }
   
   todoService.getTodos = function() {
-    
-    if (todoService.Lawnchair == null) {
-      todoService.Lawnchair = Lawnchair({name:'todoDB'}, function(store) {
-        console.log("Lawnchair has been initiated.");
-      });
+    // localStorageService.clearAll();
+    var todos = localStorageService.get('todos');
+    var json = todos == null ? null : localStorageService.parseJson(todos);
+    todoService.todos = json;
+    console.log(todoService.todos);
+    if (todoService.todos == null) {
+      todoService.todos = {
+        "todo": [{"title":"get er done!"}],
+        "inprogress": [{"title": "It's gettin done..."}],
+        "done": [{"title": "It get done!"}]
+      }
+      todoService.save();
     }
     
-    todoService.Lawnchair.get('todos', function(todos) {
-      
-      if (typeof todos == 'undefined' || todos == null) {
-        todoService.todos = {
-          "todo": [
-            {"title": "Wash car"},
-            {"title": "Make dinner"}
-          ],
-          "inprogress": [{"title": "do something"}],
-          "done": [{"title": "eat lunch"}]
-        };
-      } else {
-        todoService.todos = todos.value;
-      }
-      
-      if(!$rootScope.$$phase) {
-        $rootScope.$apply();
-      }
-      
-      $rootScope.$broadcast('todosRetrieved');
-    });
+    // if(!$rootScope.$$phase) {
+    //   $rootScope.$apply();
+    // }
+    
+    $rootScope.$broadcast('todosRetrieved');
+    
   }
   
   todoService.save = function() {
-    var val = {
-          todo: todoService.todos.todo,
-          inprogress: todoService.todos.inprogress,
-          done: todoService.todos.done
-        };
-    todoService.Lawnchair.save({
-      key: 'todos',
-      value: val
-    }, function() {
-      console.log("Done saving locally!");
-    });
+    // var val = {
+    //       todo: todoService.todos.todo,
+    //       inprogress: todoService.todos.inprogress,
+    //       done: todoService.todos.done
+    //     };
+    // todoService.Lawnchair.save({
+    //   key: 'todos',
+    //   value: val
+    // }, function() {
+    //   console.log("Done saving locally!");
+    // });
+    var str = localStorageService.stringifyJson(todoService.todos);
+    localStorageService.add('todos', str);
+    console.log("Saved");
+    console.log(localStorageService.parseJson(localStorageService.get('todos')));
   }
   
   return todoService;
   
 }]);
+todo.services.$inject = ['localStorageService'];

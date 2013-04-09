@@ -41,7 +41,7 @@ if (!window.console.warn) {
   
 var todo = angular.module('todo', ['ui', 'todo.services', 'todo.directives', 'todo.controllers']);
 
-todo.services = angular.module('todo.services', []);
+todo.services = angular.module('todo.services', ['LocalStorageModule']);
 todo.directives = angular.module('todo.directives', ['ui']);
 todo.controllers = angular.module('todo.controllers', []);
 
